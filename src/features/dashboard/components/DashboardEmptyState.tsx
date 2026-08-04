@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Wallet } from 'lucide-react'
@@ -21,7 +22,9 @@ export function DashboardEmptyState() {
             premiers revenus ou dépenses.
           </p>
         </div>
-        <Button>Ajouter une transaction</Button>
+        <Button render={<Link href="/transactions" />}>
+          Ajouter une transaction
+        </Button>
       </CardContent>
     </Card>
   )

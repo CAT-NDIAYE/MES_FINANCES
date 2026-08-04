@@ -157,6 +157,7 @@ export default function TransactionsPage() {
             loading={loading}
             onEdit={openEditDialog}
             onDelete={(transaction) => setDeletingTransaction(transaction)}
+            onAdd={openCreateDialog}
           />
 
           <TransactionPagination

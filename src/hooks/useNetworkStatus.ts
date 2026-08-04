@@ -10,14 +10,9 @@ interface NetworkStatusState {
 
 export function useNetworkStatus() {
   const [status, setStatus] = React.useState<NetworkStatusState>({
-    isOnline: typeof navigator !== 'undefined' ? navigator.onLine : true,
-    isOffline: typeof navigator !== 'undefined' ? !navigator.onLine : false,
-    connectionType:
-      typeof navigator !== 'undefined' && 'connection' in navigator
-        ? ((
-            navigator as Navigator & { connection?: { effectiveType?: string } }
-          ).connection?.effectiveType ?? null)
-        : null,
+    isOnline: true,
+    isOffline: false,
+    connectionType: null,
   })
 
   React.useEffect(() => {

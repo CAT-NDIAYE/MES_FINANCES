@@ -34,6 +34,7 @@ interface TransactionListProps {
   loading: boolean
   onEdit: (transaction: Transaction) => void
   onDelete: (transaction: Transaction) => void
+  onAdd?: () => void
 }
 
 export function TransactionList({
@@ -41,6 +42,7 @@ export function TransactionList({
   loading,
   onEdit,
   onDelete,
+  onAdd,
 }: TransactionListProps) {
   if (loading) {
     return (
@@ -57,7 +59,7 @@ export function TransactionList({
         description="Ajoutez votre première transaction pour commencer à suivre vos finances."
         icon={ArrowDownRight}
         actionLabel="Ajouter"
-        onAction={() => {}}
+        onAction={onAdd}
       />
     )
   }
