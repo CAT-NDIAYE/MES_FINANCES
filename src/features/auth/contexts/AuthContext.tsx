@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { User } from '@supabase/supabase-js'
 import { authService } from '../services/auth.service'
@@ -25,6 +26,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
+  const pathname = usePathname()
+  const router = useRouter()
 
   const updateProfile = async (updates: Partial<Profile>) => {
     if (!user?.id) {
@@ -42,6 +45,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         : (updatedProfile as Profile | null)
     )
   }
+
+  useEffect(() => {
+    if (loading) return
+
+    const isAuthRoute =
+      pathname.startsWith('/login') ||
+      pathname.startsWith('/register') ||
+      pathname.startsWith('/forgot-password') ||
+      pathname.startsWith('/reset-password')
+
+    const isOnboardingRoute = pathname.startsWith('/onboarding')
+
+    if (!user && !isAuthRoute && !isOnboardingRoute && pathname !== '/') {
+      router.replace('/login')
+    } else if (user && isAuthRoute) {
+      router.replace('/dashboard')
+    }
+  }, [user, loading, pathname, router])
 
   useEffect(() => {
     const supabase = createClient()

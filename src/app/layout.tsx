@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Providers } from '@/components/providers/Providers'
 import PWAClientShell from '@/app/pwa'
+import { MobileFlowProvider } from '@/components/providers/MobileFlowProvider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -67,7 +68,9 @@ export default function RootLayout({
         <Providers>
           <TooltipProvider>
             <AuthProvider>
-              <PWAClientShell>{children}</PWAClientShell>
+              <MobileFlowProvider>
+                <PWAClientShell>{children}</PWAClientShell>
+              </MobileFlowProvider>
               <Toaster richColors position="top-right" />
             </AuthProvider>
           </TooltipProvider>

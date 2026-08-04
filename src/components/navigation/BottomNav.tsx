@@ -30,7 +30,7 @@ export function BottomNav() {
           /* Bouton d'action primaire (flottant, accentué) */
           if (item.isPrimaryAction) {
             return (
-              <div key={item.href} className="relative -mt-7">
+              <div key={item.href} className="relative -mt-7" id="nav-new-transaction">
                 <Link
                   href={item.href}
                   className="flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg ring-4 ring-background hover:bg-primary/90 transition-all active:scale-95"
@@ -46,6 +46,7 @@ export function BottomNav() {
             <Link
               key={item.href}
               href={item.href}
+              id={`nav-${item.href.replace('/', '')}`}
               className={cn(
                 'flex flex-col items-center justify-center flex-1 h-full gap-0.5 transition-colors',
                 isActive ? 'text-primary' : 'text-muted-foreground'

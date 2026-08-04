@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/select'
 import { useAuthContext } from '@/features/auth/contexts/AuthContext'
 import { useDashboard } from '@/features/dashboard/hooks/useDashboard'
+import { ProductTour } from '@/components/layout/ProductTour'
 import {
   DashboardCharts,
   DashboardEmptyState,
@@ -46,6 +47,7 @@ export default function DashboardPage() {
 
   return (
     <PageContainer>
+      <ProductTour />
       <PageHeader
         title={greeting}
         description="Voici votre situation financière."
@@ -95,7 +97,9 @@ export default function DashboardPage() {
             })}
           </div>
 
-          <DashboardStats summary={summary} />
+          <div id="dashboard-stats">
+            <DashboardStats summary={summary} />
+          </div>
           <DashboardOverview
             summary={summary}
             budgets={budgets}
@@ -110,7 +114,9 @@ export default function DashboardPage() {
           )}
           <div className="grid gap-6 xl:grid-cols-[1.3fr_0.7fr]">
             <RecentTransactions transactions={recentTransactions} />
-            <QuickActions />
+            <div id="quick-actions">
+              <QuickActions />
+            </div>
           </div>
         </div>
       )}

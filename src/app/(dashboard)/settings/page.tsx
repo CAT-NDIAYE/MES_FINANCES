@@ -25,6 +25,7 @@ import { Switch } from '@/components/ui/switch'
 import { Icons } from '@/components/ui/icons'
 import { useAuthContext } from '@/features/auth/contexts/AuthContext'
 import { authService } from '@/features/auth/services/auth.service'
+import { storageService } from '@/lib/storage.service'
 
 export default function SettingsPage() {
   const router = useRouter()
@@ -255,6 +256,26 @@ export default function SettingsPage() {
                   : 'Mettre à jour le mot de passe'}
               </Button>
             </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Tutoriel</CardTitle>
+            <CardDescription>
+              Relancez la visite guidée pour revoir les fonctionnalités principales.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button
+              variant="outline"
+              onClick={async () => {
+                await storageService.setProductTourCompleted(false)
+                toast.success('Le tutoriel a été réinitialisé. Il démarrera à votre retour sur l’accueil.')
+              }}
+            >
+              Relancer le tutoriel
+            </Button>
           </CardContent>
         </Card>
 

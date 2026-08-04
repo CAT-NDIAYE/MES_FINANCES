@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">MesFinances</string>
+    <string name="title_activity_main">MesFinances</string>
+    <string name="package_name">com.mesfinances.app</string>
+    <string name="custom_url_scheme">com.mesfinances.app</string>
+</resources>

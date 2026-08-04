@@ -87,6 +87,7 @@ export function Sidebar() {
           const linkEl = (
             <Link
               href={item.href}
+              id={`nav-${item.href.replace('/', '')}`}
               className={cn(
                 'flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                 isActive

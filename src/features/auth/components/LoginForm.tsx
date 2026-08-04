@@ -8,6 +8,7 @@ import { useAuth } from '../hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Icons } from '@/components/ui/icons'
 import { toast } from 'sonner'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -20,24 +21,25 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>
 
 export function LoginForm() {
-  const { signIn } = useAuth()//un hook personnalisé (défini ailleurs dans le projet) qui fournit une fonction signIn pour connecter l'utilisateur.
-  const router = useRouter()//hook de Next.js pour naviguer entre les pages (ex: rediriger vers /dashboard).
-  const [isLoading, setIsLoading] = useState(false)//: un booléen (true/false) pour savoir si la connexion est en cours, afin de désactiver le bouton et afficher un texte différent.
+  const { signIn } = useAuth()
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema)
-  }) //handleSubmit : fonction qui valide les données avant d'appeler ta fonction de soumission
+  })
 
-  const onSubmit = async (data: LoginFormValues) => { //Cette fonction est appelée seulement si les données passent la validation zod
-    setIsLoading(true) //Si l'utilisateur est connecté 
+  const onSubmit = async (data: LoginFormValues) => {
+    setIsLoading(true)
     try {
-      await signIn(data.email, data.password)//tente de connecter l'utilisateur avec l'email/mot de passe
-      toast.success('Connexion réussie') //affiche une notification de succès
-      router.push('/dashboard')//redirige vers /dashboard
+      await signIn(data.email, data.password)
+      toast.success('Connexion réussie')
+      router.push('/dashboard')
     } catch (error: any) {
       toast.error(error.message || 'Email ou mot de passe incorrect')
     } finally {
-      setIsLoading(false) //dans tous les cas, remet isLoading à false à la fin
+      setIsLoading(false)
     }
   }
 
@@ -45,7 +47,15 @@ export function LoginForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
-        <Input id="email" type="email" placeholder="nom@exemple.com" {...register('email') /* branche ce champ au formulaire sous le nom "email" */} /> 
+        <Input 
+          id="email" 
+          type="email" 
+          placeholder="nom@exemple.com" 
+          autoComplete="email"
+          inputMode="email"
+          autoCapitalize="none"
+          {...register('email')} 
+        /> 
         {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
       </div>
 
@@ -56,7 +66,24 @@ export function LoginForm() {
             Mot de passe oublié ?
           </Link>
         </div>
-        <Input id="password" type="password" {...register('password')} />
+        <div className="relative">
+          <Input 
+            id="password" 
+            type={showPassword ? 'text' : 'password'} 
+            autoComplete="current-password"
+            autoCapitalize="none"
+            autoCorrect="off"
+            className="pr-10"
+            {...register('password')} 
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+          >
+            {showPassword ? <Icons.eyeOff className="h-4 w-4" /> : <Icons.eye className="h-4 w-4" />}
+          </button>
+        </div>
         {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
       </div>
 
