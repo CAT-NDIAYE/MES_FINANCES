@@ -54,3 +54,4 @@ export interface BudgetSummary {
 export type BudgetStatusFilter = 'all' | BudgetStatus
 export type BudgetMonthFilter = 'all' | string
 export type BudgetArchivedFilter = 'all' | 'active' | 'archived'
+export type BudgetSortKey = 'date' | 'category' | 'amount' | 'consumption' | 'remaining'

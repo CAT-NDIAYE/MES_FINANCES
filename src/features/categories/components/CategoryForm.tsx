@@ -55,7 +55,7 @@ export function CategoryForm({
           name="type"
           control={control}
           render={({ field }) => (
-            <Select onValueChange={field.onChange} value={field.value}>
+            <Select onValueChange={(val) => field.onChange(val as any)} value={field.value}>
               <SelectTrigger id="type" className="w-full">
                 <SelectValue placeholder="Sélectionner le type" />
               </SelectTrigger>

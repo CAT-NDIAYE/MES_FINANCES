@@ -15,6 +15,7 @@ import type {
   BudgetArchivedFilter,
   BudgetMonthFilter,
   BudgetStatusFilter,
+  BudgetSortKey,
 } from '../types'
 
 interface BudgetFiltersProps {
@@ -28,8 +29,8 @@ interface BudgetFiltersProps {
   onCategoryChange: (value: string) => void
   archivedFilter: BudgetArchivedFilter
   onArchivedChange: (value: BudgetArchivedFilter) => void
-  sortKey: string
-  onSortKeyChange: (value: string) => void
+  sortKey: BudgetSortKey
+  onSortKeyChange: (value: BudgetSortKey) => void
   sortOrder: 'asc' | 'desc'
   onSortOrderChange: (value: 'asc' | 'desc') => void
   months: string[]
@@ -114,7 +115,7 @@ export function BudgetFilters({
 
         <Select
           value={categoryFilter}
-          onValueChange={(value) => onCategoryChange(value)}
+          onValueChange={(value) => onCategoryChange(value as string)}
         >
           <SelectTrigger className="w-[170px]">
             <SelectValue placeholder="Catégorie" />
@@ -147,7 +148,7 @@ export function BudgetFilters({
 
         <Select
           value={sortKey}
-          onValueChange={(value) => onSortKeyChange(value)}
+          onValueChange={(value) => onSortKeyChange(value as BudgetSortKey)}
         >
           <SelectTrigger className="w-[160px]">
             <SelectValue placeholder="Trier par" />

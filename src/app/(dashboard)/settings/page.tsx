@@ -155,7 +155,7 @@ export default function SettingsPage() {
 
             <div className="space-y-2">
               <Label htmlFor="currency">Devise par défaut</Label>
-              <Select value={currency} onValueChange={setCurrency}>
+              <Select value={currency} onValueChange={(value) => setCurrency(value as string)}>
                 <SelectTrigger id="currency">
                   <SelectValue placeholder="Choisir une devise" />
                 </SelectTrigger>

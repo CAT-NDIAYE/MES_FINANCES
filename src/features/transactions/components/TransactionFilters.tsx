@@ -97,8 +97,8 @@ export function TransactionFilters({
           <Label>Type</Label>
           <Select
             value={typeFilter}
-            onValueChange={(value: TransactionFilterMode) =>
-              onTypeChange(value)
+            onValueChange={(value) =>
+              onTypeChange(value as any)
             }
           >
             <SelectTrigger className="w-full">
@@ -116,8 +116,8 @@ export function TransactionFilters({
           <Label>Période</Label>
           <Select
             value={dateFilter}
-            onValueChange={(value: TransactionDateFilter) =>
-              onDateChange(value)
+            onValueChange={(value) =>
+              onDateChange(value as any)
             }
           >
             <SelectTrigger className="w-full">
@@ -159,8 +159,8 @@ export function TransactionFilters({
           <Label>Trier par</Label>
           <Select
             value={sortKey}
-            onValueChange={(value: TransactionSortKey) =>
-              onSortKeyChange(value)
+            onValueChange={(value) =>
+              onSortKeyChange(value as any)
             }
           >
             <SelectTrigger className="w-full">
@@ -179,8 +179,8 @@ export function TransactionFilters({
           <Label>Ordre</Label>
           <Select
             value={sortOrder}
-            onValueChange={(value: TransactionSortOrder) =>
-              onSortOrderChange(value)
+            onValueChange={(value) =>
+              onSortOrderChange(value as any)
             }
           >
             <SelectTrigger className="w-full">

@@ -93,7 +93,7 @@ export default function CategoriesPage() {
           <span className="text-xs text-muted-foreground whitespace-nowrap">Trier par :</span>
           <Select
             value={sortKey}
-            onValueChange={(val) => setSortKey(val as CategorySortKey)}
+            onValueChange={(val) => setSortKey(val as any)}
           >
             <SelectTrigger className="w-[180px] h-9">
               <SelectValue placeholder="Trier par" />

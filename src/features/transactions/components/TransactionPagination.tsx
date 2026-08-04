@@ -35,7 +35,7 @@ export function TransactionPagination({
       <div className="flex flex-wrap items-center gap-2">
         <Select
           value={String(pageSize)}
-          onValueChange={(value) => onPageSizeChange(Number(value))}
+          onValueChange={(value) => onPageSizeChange(Number(value as string))}
         >
           <SelectTrigger className="w-25">
             <SelectValue />

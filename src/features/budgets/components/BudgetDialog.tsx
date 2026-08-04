@@ -106,7 +106,7 @@ export function BudgetDialog({
         <div className="space-y-4">
           <div className="space-y-2">
             <label className="text-sm font-medium">Catégorie</label>
-            <Select value={categoryId} onValueChange={setCategoryId}>
+            <Select value={categoryId} onValueChange={(val) => setCategoryId(val as string)}>
               <SelectTrigger>
                 <SelectValue placeholder="Choisir une catégorie" />
               </SelectTrigger>

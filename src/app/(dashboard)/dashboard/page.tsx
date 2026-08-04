@@ -101,11 +101,13 @@ export default function DashboardPage() {
             budgets={budgets}
             savingGoals={savingGoals}
           />
-          <DashboardCharts
-            monthly={charts.monthly}
-            expensesByCategory={charts.expensesByCategory}
-            topCategories={charts.topCategories}
-          />
+          {charts && (
+            <DashboardCharts
+              monthly={charts.monthly}
+              expensesByCategory={charts.expensesByCategory}
+              topCategories={charts.topCategories}
+            />
+          )}
           <div className="grid gap-6 xl:grid-cols-[1.3fr_0.7fr]">
             <RecentTransactions transactions={recentTransactions} />
             <QuickActions />

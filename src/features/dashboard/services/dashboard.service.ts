@@ -182,7 +182,7 @@ export const dashboardService = {
     const expensesByCategory = Object.values(
       transactions.reduce<Record<string, number>>((acc, item) => {
         if (item.type === 'expense') {
-          const name = item.categories?.name ?? 'Sans catégorie'
+          const name = (item.categories as any)?.name ?? 'Sans catégorie'
           acc[name] = (acc[name] ?? 0) + Number(item.amount)
         }
         return acc
@@ -192,7 +192,7 @@ export const dashboardService = {
     const topCategories = Object.entries(
       transactions.reduce<Record<string, number>>((acc, item) => {
         if (item.type === 'expense') {
-          const name = item.categories?.name ?? 'Sans catégorie'
+          const name = (item.categories as any)?.name ?? 'Sans catégorie'
           acc[name] = (acc[name] ?? 0) + Number(item.amount)
         }
         return acc
@@ -205,7 +205,7 @@ export const dashboardService = {
     const expensesChart: CategorySpend[] = Object.entries(
       transactions.reduce<Record<string, number>>((acc, item) => {
         if (item.type === 'expense') {
-          const name = item.categories?.name ?? 'Sans catégorie'
+          const name = (item.categories as any)?.name ?? 'Sans catégorie'
           acc[name] = (acc[name] ?? 0) + Number(item.amount)
         }
         return acc
@@ -220,7 +220,7 @@ export const dashboardService = {
       amount: Number(item.amount),
       description: item.description,
       transaction_date: item.transaction_date,
-      category_name: item.categories?.name ?? null,
+      category_name: (item.categories as any)?.name ?? null,
     }))
 
     const budgets: BudgetOverview[] = (budgetsResult.data ?? []).map(

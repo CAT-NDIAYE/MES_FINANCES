@@ -105,7 +105,7 @@ export function TransactionForm({
           control={control}
           render={({ field }) => (
             <Select
-              onValueChange={(value: TransactionType) => field.onChange(value)}
+              onValueChange={(value) => field.onChange(value as any)}
               value={field.value}
             >
               <SelectTrigger id="type" className="w-full">
@@ -144,7 +144,7 @@ export function TransactionForm({
           name="category_id"
           control={control}
           render={({ field }) => (
-            <Select onValueChange={field.onChange} value={field.value}>
+            <Select onValueChange={(val) => field.onChange(val as any)} value={field.value}>
               <SelectTrigger id="category_id" className="w-full">
                 <SelectValue placeholder="Sélectionner une catégorie" />
               </SelectTrigger>
@@ -199,7 +199,6 @@ export function TransactionForm({
               mode="single"
               selected={selectedDate}
               onSelect={handleDateSelect}
-              initialFocus
             />
           </PopoverContent>
         </Popover>

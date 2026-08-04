@@ -123,7 +123,7 @@ export default function SavingGoalsPage() {
             />
           </div>
           <div className="flex flex-wrap gap-2">
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <Select value={statusFilter} onValueChange={(value) => setStatusFilter(value as any)}>
               <SelectTrigger className="w-35">
                 <SelectValue placeholder="Filtrer" />
               </SelectTrigger>
@@ -135,7 +135,7 @@ export default function SavingGoalsPage() {
                 <SelectItem value="archived">Archivés</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={archivedFilter} onValueChange={setArchivedFilter}>
+            <Select value={archivedFilter} onValueChange={(value) => setArchivedFilter(value as any)}>
               <SelectTrigger className="w-35">
                 <SelectValue placeholder="État" />
               </SelectTrigger>
@@ -145,7 +145,7 @@ export default function SavingGoalsPage() {
                 <SelectItem value="archived">Archivés</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={sortKey} onValueChange={setSortKey}>
+            <Select value={sortKey} onValueChange={(value) => setSortKey(value as any)}>
               <SelectTrigger className="w-35">
                 <SelectValue placeholder="Trier" />
               </SelectTrigger>
@@ -158,7 +158,7 @@ export default function SavingGoalsPage() {
                 <SelectItem value="created_at">Date de création</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={sortOrder} onValueChange={setSortOrder}>
+            <Select value={sortOrder} onValueChange={(value) => setSortOrder(value as any)}>
               <SelectTrigger className="w-30">
                 <SelectValue placeholder="Ordre" />
               </SelectTrigger>

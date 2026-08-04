@@ -61,10 +61,7 @@ export function BudgetList({
           <div>Actions</div>
         </div>
         {budgets.map((budget) => {
-          const statusMeta = calculateBudgetStatusMeta(
-            budget.status,
-            budget.alert_percentage
-          )
+          const statusMeta = calculateBudgetStatusMeta(budget.status)
           return (
             <div
               key={budget.id}

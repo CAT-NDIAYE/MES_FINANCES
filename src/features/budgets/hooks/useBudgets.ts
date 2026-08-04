@@ -11,6 +11,7 @@ import type {
   BudgetStatusFilter,
   CreateBudgetInput,
   UpdateBudgetInput,
+  BudgetSortKey,
 } from '../types'
 import { calculateBudgetSummary } from '../utils/budget-calculations'
 
@@ -23,9 +24,7 @@ export function useBudgets() {
   const [categoryFilter, setCategoryFilter] = React.useState<string>('all')
   const [archivedFilter, setArchivedFilter] =
     React.useState<BudgetArchivedFilter>('active')
-  const [sortKey, setSortKey] = React.useState<
-    'category' | 'amount' | 'consumption' | 'date' | 'remaining'
-  >('date')
+  const [sortKey, setSortKey] = React.useState<BudgetSortKey>('date')
   const [sortOrder, setSortOrder] = React.useState<'asc' | 'desc'>('desc')
 
   const {
