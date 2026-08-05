@@ -3,22 +3,33 @@
 import * as React from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { SplashScreen } from '@capacitor/splash-screen'
+import { Capacitor } from '@capacitor/core'
 import { storageService } from '@/lib/storage.service'
 import { useAuthContext } from '@/features/auth/contexts/AuthContext'
 
-export function MobileFlowProvider({ children }: { children: React.ReactNode }) {
+export function MobileFlowProvider({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const router = useRouter()
   const pathname = usePathname()
   const { user, loading } = useAuthContext()
-  const [initialized, setInitialized] = React.useState(false)
+  const [initialized, setInitialized] = React.useState(
+    !Capacitor.isNativePlatform()
+  )
 
   React.useEffect(() => {
+    if (!Capacitor.isNativePlatform()) {
+      return
+    }
+
     async function initFlow() {
       if (loading) return
 
       try {
         const onboardingCompleted = await storageService.isOnboardingCompleted()
-        
+
         if (!onboardingCompleted && pathname !== '/onboarding') {
           router.replace('/onboarding')
         } else if (onboardingCompleted && pathname === '/onboarding') {
@@ -34,7 +45,7 @@ export function MobileFlowProvider({ children }: { children: React.ReactNode }) 
         setInitialized(true)
         try {
           await SplashScreen.hide()
-        } catch (e) {
+        } catch {
           // Ignore if running on web browser
         }
       }
@@ -42,6 +53,10 @@ export function MobileFlowProvider({ children }: { children: React.ReactNode }) 
 
     initFlow()
   }, [loading, pathname, router, user])
+
+  if (!Capacitor.isNativePlatform()) {
+    return <>{children}</>
+  }
 
   if (loading || !initialized) {
     return (
