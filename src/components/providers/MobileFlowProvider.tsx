@@ -7,6 +7,12 @@ import { Capacitor } from '@capacitor/core'
 import { storageService } from '@/lib/storage.service'
 import { useAuthContext } from '@/features/auth/contexts/AuthContext'
 
+/**
+ * MobileFlowProvider
+ * Gère le flux d'onboarding et de redirection spécifique au mobile.
+ * Utilise un affichage conditionnel qui ne bloque pas le rendu des enfants
+ * pour éviter les erreurs d'hydratation et de hooks.
+ */
 export function MobileFlowProvider({
   children,
 }: {
@@ -15,17 +21,23 @@ export function MobileFlowProvider({
   const router = useRouter()
   const pathname = usePathname()
   const { user, loading } = useAuthContext()
-  const [initialized, setInitialized] = React.useState(
-    !Capacitor.isNativePlatform()
-  )
+
+  const [mounted, setMounted] = React.useState(false)
+  const [initialized, setInitialized] = React.useState(false)
 
   React.useEffect(() => {
-    if (!Capacitor.isNativePlatform()) {
-      return
-    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true)
+  }, [])
+
+  React.useEffect(() => {
+    if (!mounted || loading) return
 
     async function initFlow() {
-      if (loading) return
+      if (!Capacitor.isNativePlatform()) {
+        setInitialized(true)
+        return
+      }
 
       try {
         const onboardingCompleted = await storageService.isOnboardingCompleted()
@@ -45,29 +57,28 @@ export function MobileFlowProvider({
         setInitialized(true)
         try {
           await SplashScreen.hide()
-        } catch {
-          // Ignore if running on web browser
-        }
+        } catch {}
       }
     }
 
     initFlow()
-  }, [loading, pathname, router, user])
+  }, [mounted, loading, pathname, router, user])
 
-  if (!Capacitor.isNativePlatform()) {
-    return <>{children}</>
-  }
-
-  if (loading || !initialized) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0f172a] text-white">
-        <div className="flex flex-col items-center gap-4">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#10b981] border-t-transparent" />
-          <p className="text-sm font-medium text-slate-400">Chargement...</p>
+  // Rendu constant des enfants pour éviter le mismatch de hooks
+  // On utilise un overlay pour le chargement
+  return (
+    <>
+      {(!mounted || loading || !initialized) && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0f172a] text-white">
+          <div className="flex flex-col items-center gap-4">
+            <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#10b981] border-t-transparent" />
+            <p className="text-sm font-medium text-slate-400">Chargement...</p>
+          </div>
         </div>
+      )}
+      <div className={(!mounted || loading || !initialized) ? 'invisible' : 'visible contents'}>
+        {children}
       </div>
-    )
-  }
-
-  return <>{children}</>
+    </>
+  )
 }

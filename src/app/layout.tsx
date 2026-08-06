@@ -5,8 +5,8 @@ import { AuthProvider } from '@/features/auth/contexts/AuthContext'
 import { Toaster } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { Providers } from '@/components/providers/Providers'
-import PWAClientShell from '@/app/pwa'
 import { MobileFlowProvider } from '@/components/providers/MobileFlowProvider'
+import { LayoutWrapper } from '@/components/providers/LayoutWrapper'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -19,57 +19,30 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'MesFinances — Gestion financière personnelle',
-  description:
-    'Gérez vos finances personnelles de manière simple et efficace avec MesFinances.',
-  manifest: '/manifest.webmanifest',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'MesFinances',
-  },
-  icons: {
-    icon: [{ url: '/icons/icon.svg', sizes: 'any', type: 'image/svg+xml' }],
-    apple: [
-      { url: '/icons/icon.svg', sizes: '180x180', type: 'image/svg+xml' },
-    ],
-  },
-  openGraph: {
-    title: 'MesFinances',
-    description: 'Gestion financière personnelle installable',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'MesFinances',
-    description: 'Gestion financière personnelle installable',
-  },
+  title: 'MesFinances',
+  description: 'Gestion financière',
 }
 
 export const viewport: Viewport = {
   themeColor: '#10b981',
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
   viewportFit: 'cover',
 }
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
-    <html
-      lang="fr"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
+    <html lang="fr" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-[#0f172a]" suppressHydrationWarning>
         <Providers>
           <TooltipProvider>
             <AuthProvider>
               <MobileFlowProvider>
-                <PWAClientShell>{children}</PWAClientShell>
+                <LayoutWrapper>{children}</LayoutWrapper>
               </MobileFlowProvider>
               <Toaster richColors position="top-right" />
             </AuthProvider>

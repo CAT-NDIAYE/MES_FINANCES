@@ -68,7 +68,7 @@ export function TransactionFilters({
   return (
     <div className="space-y-4 rounded-xl border bg-background p-4">
       <div className="flex flex-wrap items-center gap-2">
-        <div className="relative flex-1 min-w-55">
+        <div className="relative flex-1 min-w-[14rem]">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Rechercher une transaction"
@@ -98,7 +98,7 @@ export function TransactionFilters({
           <Select
             value={typeFilter}
             onValueChange={(value) =>
-              onTypeChange(value as any)
+              onTypeChange(value as TransactionFilterMode)
             }
           >
             <SelectTrigger className="w-full">
@@ -117,7 +117,7 @@ export function TransactionFilters({
           <Select
             value={dateFilter}
             onValueChange={(value) =>
-              onDateChange(value as any)
+              onDateChange(value as TransactionDateFilter)
             }
           >
             <SelectTrigger className="w-full">
@@ -125,7 +125,7 @@ export function TransactionFilters({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">Toutes</SelectItem>
-              <SelectItem value="today">Aujourd'hui</SelectItem>
+              <SelectItem value="today">Aujourd&apos;hui</SelectItem>
               <SelectItem value="week">Cette semaine</SelectItem>
               <SelectItem value="month">Ce mois</SelectItem>
               <SelectItem value="year">Cette année</SelectItem>
@@ -160,7 +160,7 @@ export function TransactionFilters({
           <Select
             value={sortKey}
             onValueChange={(value) =>
-              onSortKeyChange(value as any)
+              onSortKeyChange(value as TransactionSortKey)
             }
           >
             <SelectTrigger className="w-full">
@@ -180,7 +180,7 @@ export function TransactionFilters({
           <Select
             value={sortOrder}
             onValueChange={(value) =>
-              onSortOrderChange(value as any)
+              onSortOrderChange(value as TransactionSortOrder)
             }
           >
             <SelectTrigger className="w-full">

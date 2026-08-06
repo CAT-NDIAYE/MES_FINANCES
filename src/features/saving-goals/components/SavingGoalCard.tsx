@@ -30,22 +30,22 @@ export function SavingGoalCard({
   return (
     <Card className="overflow-hidden border-border/70 shadow-sm">
       <CardHeader className="flex flex-row items-start justify-between gap-3 pb-2">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-1 min-w-0 items-center gap-3">
           <div
-            className="flex h-10 w-10 items-center justify-center rounded-full text-lg"
+            className="flex shrink-0 h-10 w-10 items-center justify-center rounded-full text-lg"
             style={{ backgroundColor: `${accentColor}20`, color: accentColor }}
           >
             {goal.icon ?? '🎯'}
           </div>
-          <div>
-            <h3 className="font-semibold">{goal.name}</h3>
-            <p className="text-sm text-muted-foreground">
+          <div className="flex-1 min-w-0">
+            <h3 className="font-semibold truncate">{goal.name}</h3>
+            <p className="text-sm text-muted-foreground truncate">
               {goal.description ?? 'Objectif d’épargne'}
             </p>
           </div>
         </div>
         <span
-          className="rounded-full border px-2.5 py-1 text-xs font-medium"
+          className="shrink-0 rounded-full border px-2.5 py-1 text-xs font-medium"
           style={{ borderColor: `${accentColor}50`, color: accentColor }}
         >
           {goal.status === 'completed'

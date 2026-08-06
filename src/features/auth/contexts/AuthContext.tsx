@@ -47,7 +47,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
-    if (loading) return
+    // Hydration check to avoid redirecting during initial render
+    if (loading || typeof window === 'undefined') return
 
     const isAuthRoute =
       pathname.startsWith('/login') ||

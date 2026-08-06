@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { EmptyState } from '@/components/empty/EmptyState'
 import { formatCurrency } from '@/lib/utils'
-import { Archive, Edit3, MoreHorizontal, Plus, Trash2 } from 'lucide-react'
+import { Archive, Edit3, Plus, Trash2 } from 'lucide-react'
 import type { Budget } from '../types'
 import { BudgetProgressBar } from './BudgetProgressBar'
 import { calculateBudgetStatusMeta } from '../utils/budget-calculations'
@@ -151,20 +151,20 @@ export function BudgetList({
               className="rounded-2xl border bg-background p-4 shadow-sm"
             >
               <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-foreground">
+                <div className="flex flex-1 min-w-0 items-center gap-3">
+                  <div className="flex shrink-0 h-10 w-10 items-center justify-center rounded-full bg-muted text-foreground">
                     {budget.category?.icon ?? '📌'}
                   </div>
-                  <div>
-                    <p className="font-semibold">
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold truncate">
                       {budget.category?.name ?? 'Catégorie'}
                     </p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground truncate">
                       {budget.month}/{budget.year}
                     </p>
                   </div>
                 </div>
-                <Badge className={statusMeta.className}>
+                <Badge className={`${statusMeta.className} shrink-0`}>
                   {statusMeta.label}
                 </Badge>
               </div>

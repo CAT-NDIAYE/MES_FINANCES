@@ -1,20 +1,4 @@
 import type { NextConfig } from 'next'
-import withPWAInit from '@ducanh2912/next-pwa'
-
-const isCapacitor = process.env.CAPACITOR === 'true'
-
-const withPWA = withPWAInit({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development' || isCapacitor,
-  register: true,
-  workboxOptions: {
-    skipWaiting: true,
-    clientsClaim: true,
-  },
-  fallbacks: {
-    document: '/offline.html',
-  },
-})
 
 const nextConfig: NextConfig = {
   output: 'export',
@@ -22,6 +6,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  // Désactivation explicite de Turbopack pour utiliser Webpack par défaut si nécessaire
+  // ou on peut passer le flag --webpack
 }
 
-export default withPWA(nextConfig)
+export default nextConfig

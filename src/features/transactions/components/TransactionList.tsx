@@ -144,7 +144,7 @@ export function TransactionList({
             className="rounded-xl border bg-background p-4 shadow-sm"
           >
             <div className="flex items-start justify-between gap-3">
-              <div className="flex items-center gap-3">
+              <div className="flex flex-1 min-w-0 items-center gap-3">
                 <div
                   className={`rounded-full p-2 ${transaction.type === 'income' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}
                 >
@@ -154,18 +154,18 @@ export function TransactionList({
                     <ArrowDownRight className="h-4 w-4" />
                   )}
                 </div>
-                <div>
-                  <p className="font-medium">
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium truncate">
                     {transaction.category?.name ?? 'Sans catégorie'}
                   </p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground truncate">
                     {new Date(transaction.transaction_date).toLocaleDateString(
                       'fr-FR'
                     )}
                   </p>
                 </div>
               </div>
-              <div className="text-right">
+              <div className="text-right shrink-0">
                 <p
                   className={`font-semibold ${transaction.type === 'income' ? 'text-emerald-600' : 'text-rose-600'}`}
                 >
@@ -174,7 +174,7 @@ export function TransactionList({
               </div>
             </div>
             {transaction.description && (
-              <p className="mt-3 text-sm text-muted-foreground">
+              <p className="mt-3 text-sm text-muted-foreground break-words line-clamp-2">
                 {transaction.description}
               </p>
             )}

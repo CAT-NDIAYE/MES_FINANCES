@@ -31,7 +31,7 @@ export function RecentTransactions({ transactions }: RecentTransactionsProps) {
               key={transaction.id}
               className="flex items-center justify-between rounded-xl border p-3"
             >
-              <div className="flex items-center gap-3">
+              <div className="flex flex-1 min-w-0 items-center gap-3">
                 <div
                   className={`rounded-full p-2 ${transaction.type === 'income' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}
                 >
@@ -41,16 +41,16 @@ export function RecentTransactions({ transactions }: RecentTransactionsProps) {
                     <ArrowDownRight className="h-4 w-4" />
                   )}
                 </div>
-                <div>
-                  <p className="font-medium">
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium truncate">
                     {transaction.category_name ?? 'Sans catégorie'}
                   </p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground truncate">
                     {transaction.description ?? 'Aucune description'}
                   </p>
                 </div>
               </div>
-              <div className="text-right">
+              <div className="text-right shrink-0">
                 <p
                   className={`font-semibold ${transaction.type === 'income' ? 'text-emerald-600' : 'text-rose-600'}`}
                 >
